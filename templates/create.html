@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% block body %}
+
+
+<!-- 폼 파라미터가 있다면 -->
+{% if form %}
+    <!-- Form Errors -->
+    {% if form.errors %}
+        <ul class="errors">
+            {% for error in form.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Display Form -->
+    <form action="{% url 'create' %}" method="POST">
+    {% csrf_token %}
+    <!-- 폼도 for문을 이용할 수 있다. -->
+    {% for field in form %}
+        <div class="form-group">
+            <label class="mylabel">{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+        <input class="btn btn-dark" type="submit" value="제출하기">
+    </form>
+{% endif %}
+
+
+{% endblock %}
